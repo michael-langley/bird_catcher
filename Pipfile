@@ -1,0 +1,26 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+black = "*"
+
+[packages]
+google-auth = '1.19.2'
+requests = '2.24.0'
+functions-framework = "*"
+python-dotenv = "*"
+google-cloud-pubsub = "*"
+
+[requires]
+python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
+
+[scripts]
+debug = "functions-framework --target bird_catcher --port 7000 --signature-type event --debug"
+deploy = "gcloud functions deploy bird_catcher --runtime python37 --trigger-topic fogo-pubsub-topic"
+get-logs = "gcloud functions logs read bird_catcher --limit 100"
+sample-sub = "python sample_sub.py"
